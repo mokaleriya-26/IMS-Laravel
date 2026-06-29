@@ -9,7 +9,8 @@ class Achievement extends Model
 {
     protected $fillable = [
         'student_id', 'title', 'category', 'description', 
-        'file_path', 'status', 'faculty_remarks', 'reviewed_by', 'reviewed_at'
+        'file_path', 'status', 'faculty_remarks', 'reviewed_by', 'reviewed_at',
+        'academic_year', 'division', 'semester', 'from_date', 'to_date', 'organization_name', 'event_name', 'award_status'
     ];
 
     public function student(): BelongsTo
