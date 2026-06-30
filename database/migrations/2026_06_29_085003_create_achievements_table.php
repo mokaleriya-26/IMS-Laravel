@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
-            $table->enum('category', ['Internship', 'Certificate', 'Competition', 'Paper Publication']);
+            $table->enum('category', ['Internship', 'Certificate', 'Competition', 'Paper Publication', 'Event Participation']);
             $table->text('description');
             $table->string('file_path');
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');

@@ -36,6 +36,22 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                     New Submission
                 </a>
+
+                <a href="{{ route('student.dashboard',['tab'=>'placement']) }}"
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'submissions' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-6-3v2a6 6 0 0012 0v-2"/>
+                    </svg>
+                    Placement
+                </a>
+
+                <a href="{{ route('student.dashboard', ['tab' => 'help-desk']) }}"
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'help-desk' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"d="M18 10c0 3.866-3.582 7-8 7a8.84 8.84 0 01-3-.52L3 18l1.5-3A6.93 6.93 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"/>
+                    </svg>
+                    Help Desk
+                </a>
             </nav>
         </div>
 
@@ -51,7 +67,7 @@
     </aside>
 
     {{-- Main Content --}}
-    <div class="pl-64 flex-1 flex flex-col min-h-screen">
+    <div class="pl-64 flex-1 flex flex-col min-h-screen overflow-x-hidden">
         
         {{-- Header --}}
         <header class="bg-white border-b border-slate-200/80 sticky top-0 z-10 shadow-sm">
@@ -77,19 +93,16 @@
                     <input type="text" placeholder="Search records, categories..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm font-medium text-slate-700 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all">
                     <svg class="absolute left-3 top-3 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="text-sm font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl hover:bg-slate-200 transition flex items-center gap-1.5">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                            Logout
-                        </button>
+                        <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
                     </form>
                 </div>
             </div>
         </header>
 
-        <main class="p-8 flex-1">
+        <main class="flex-1 p-8 max-w-full overflow-x-hidden">
             
             @if(session('success'))
                 <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm font-semibold flex items-center gap-2 shadow-sm">
@@ -202,15 +215,125 @@
                     </div>
                 </div>
 
-            {{-- ── Academic Records Tab ─────────────────────────────────────── --}}
-            @elseif($currentTab === 'academic-records')
+            {{-- ── Help Records Tab ─────────────────────────────────────── --}}                
+            @elseif($currentTab === 'help-desk')
+            <div class="space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-black text-slate-900">
+                            Help Desk
+                        </h1>   
+                        <p class="text-slate-500 mt-2">
+                            Raise support tickets and track your requests.
+                        </p>
+                    </div>
+                    <button
+                        onclick="document.getElementById('ticketModal').classList.remove('hidden')"
+                        class="bg-[#005F5B] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#004845]">
+                            + Raise Ticket
+                    </button>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
+                    <div class="text-6xl mb-4">🎟️</div>
+                    <h2 class="text-xl font-bold text-slate-800">
+                        No Help Desk Tickets Yet
+                    </h2>
+                    <p class="text-slate-500 mt-2">
+                        When you raise a support ticket, it will appear here.
+                    </p>
+                </div>
+            </div>
+
+            {{-- ── Placement Tab ─────────────────────────────────────── --}}
+            @elseif($currentTab === 'placement')
+
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-black text-[#005F5B]">Placement Opportunities</h1>
+                    <p class="text-sm text-slate-500 mt-1">Apply for available campus placement drives.</p>
+                </div>
+                <div class="bg-[#EBF5F4] text-[#005F5B] px-4 py-2 rounded-xl font-bold">
+                    Open Drives: {{ $jobs->count() }}
+                </div>
+            </div>
+
+            @if($jobs->isEmpty())
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
+                <div class="text-6xl mb-4">💼</div>
+                <h2 class="text-xl font-bold text-slate-800">No Placement Drives Available</h2>
+                <p class="text-slate-500 mt-2">New opportunities will appear here.</p>
+            </div>
+
+            @else
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-slate-50 border-b">
+                        <tr class="text-xs uppercase font-bold tracking-wider text-black">
+                            <th class="px-6 py-4 text-left">Company</th>
+                            <th class="px-6 py-4 text-left">Position</th>
+                            <th class="px-6 py-4 text-left">Type</th>
+                            <th class="px-6 py-4 text-center">CGPA</th>
+                            <th class="px-6 py-4 text-center">Drive Date</th>
+                            <th class="px-6 py-4 text-center">Status</th>
+                            <th class="px-6 py-4 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach($jobs as $job)
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-5">
+                                <div class="font-bold text-slate-800">{{ $job->company_name }}</div>
+                            </td>
+                            <td class="px-6 py-5">{{ $job->job_title }}</td>
+                            <td class="px-6 py-5">
+                                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $job->type }}</span>
+                            </td>
+                            <td class="px-6 py-5 text-center">{{ $job->eligibility_cgpa }}</td>
+                            <td class="px-6 py-5 text-center">{{ \Carbon\Carbon::parse($job->drive_date)->format('d M Y') }}</td>
+                            <td class="px-6 py-5 text-center">
+                                @if(isset($applications[$job->id]))
+                                @php
+                                    $status = $applications[$job->id];
+                                @endphp
+                                <span class="px-4 py-1 rounded-full text-xs font-bold
+                                    @if($status=='Applied') bg-blue-100 text-blue-700
+                                    @elseif($status=='Shortlisted') bg-yellow-100 text-yellow-700
+                                    @elseif($status=='Interviewing') bg-purple-100 text-purple-700
+                                    @elseif($status=='Selected') bg-green-100 text-green-700
+                                    @elseif($status=='Rejected') bg-red-100 text-red-700
+                                    @endif">{{ $status }}</span>
+                                @else
+                                <span class="text-slate-400 text-sm">Not Applied</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                @if(isset($applications[$job->id]))
+                                <button disabled class="bg-slate-300 text-white px-4 py-1 rounded-lg cursor-not-allowed">Applied</button>
+                                @else
+                                <form action="{{ route('student.jobs.apply',$job) }}" method="POST">
+                                    @csrf
+                                    <button class="bg-[#005F5B] hover:bg-[#004845] text-white px-4 py-1 rounded-lg font-semibold transition">Apply</button>
+                                </form>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+
+        {{-- ── Academic Records Tab ─────────────────────────────────────── --}}
+        @elseif($currentTab === 'academic-records')
                 <div class="space-y-6">
-                    <div class="flex justify-between items-center">
+                    <div class="w-full flex justify-between items-center">
                         <div>
-                            <h1 class="text-2xl font-black text-slate-900 tracking-tight">My Achievements</h1>
+                            <h1 class="text-2xl font-black text-[#005F5B] tracking-tight">My Achievements</h1>
                             <p class="text-sm text-slate-600 font-medium mt-1">Track and validate your institutional milestones.</p>
                         </div>
-                        <div class="flex gap-2.5">
+                        <div class="flex justify-between items-center gap-3">
                             <div class="relative group">
                                 <button class="border border-slate-200 text-slate-700 font-bold text-sm px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 transition shadow-sm flex items-center gap-2">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -229,60 +352,75 @@
                         </div>
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                        <table class="w-full text-left text-sm">
+                    <div class="rounded-2xl border border-slate-200 shadow-sm bg-white">
+                        <div class="overflow-x-auto">
+                        <table class="min-w-[1700px]">
                             <thead>
-                                <tr class="border-b text-xs font-bold uppercase text-slate-500 bg-slate-50/60 tracking-wider">
-                                    <th class="py-4 px-6">Date</th>
+                                <tr class="border-b text-xs font-bold uppercase text-black bg-slate-50/60 tracking-wider">
+                                    <th class="py-4 px-6">Academic Year</th>
+                                    <th class="py-4 px-6">Student Name</th>
+                                    <th class="py-4 px-6">Roll No.</th>
+                                    <th class="py-4 px-6">Branch</th>
+                                    <th class="py-4 px-6 ">Divison</th>
+                                    <th class="py-4 px-6">Semester</th>
                                     <th class="py-4 px-6">Category</th>
-                                    <th class="py-4 px-6">Achievement Title</th>
+                                    <th class="py-4 px-6">Event Name</th>
+                                    <th class="py-4 px-6">Organization Name</th>
+                                    <th class="py-4 px-6">From Date</th>
+                                    <th class="py-4 px-6">To Date</th>
+                                    <th class="py-4 px-6">Award/Participation</th>
                                     <th class="py-4 px-6">Status</th>
-                                    <th class="py-4 px-6 text-center">Actions</th>
+                                    <th class="py-4 px-6 ">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 font-medium">
-                                @forelse($achievements as $achievement)
-                                    <tr class="hover:bg-slate-50/30 transition">
-                                        <td class="py-4 px-6 text-slate-600 text-xs">
-                                            {{ $achievement->created_at ? $achievement->created_at->format('M d, Y') : now()->format('M d, Y') }}
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="bg-[#EBF5F4] text-[#005F5B] font-extrabold text-xs px-2.5 py-1 rounded-md">
-                                                {{ $achievement->category }}
+                            @forelse($achievements as $achievement)
+                                <tr class="hover:bg-slate-50/30 transition">
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->academic_year }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $user->name }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $user->studentProfile->roll_number ?? '-' }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $user->studentProfile->branch ?? '-' }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->division }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->semester }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->category }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->event_name }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->organization_name }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->from_date }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->to_date   }}</td>
+                                    <td class="py-4 px-6 text-sm">{{ $achievement->award_status }}</td>
+                                    <td class="py-4 px-6">
+                                        @if($achievement->status == 'Approved')
+                                            <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">
+                                                Approved
                                             </span>
-                                        </td>
-                                        <td class="py-4 px-6 font-bold text-slate-800 text-[14px] max-w-sm truncate">
-                                            {{ $achievement->title }}
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            @if($achievement->status === 'Approved')
-                                                <span class="text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-bold">● Verified</span>
-                                            @elseif($achievement->status === 'Pending')
-                                                <span class="text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full text-xs font-bold">● Pending</span>
-                                            @else
-                                                <span class="text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full text-xs font-bold">● Rejected</span>
-                                            @endif
-                                        </td>
-                                        <td class="py-4 px-6 text-center">
-                                            <button 
-                                                onclick='openDetailsModal(@json($achievement))'
-                                                class="p-1.5 border border-[#005F5B] rounded-lg text-[#005F5B] bg-[#EBF5F4] text-xs font-bold hover:bg-[#005F5B] hover:text-white transition">
-                                                👁 View
-                                            </button>
-                                        </td>
-                                    </tr>
+
+                                        @elseif($achievement->status == 'Pending')
+                                            <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">
+                                                Pending
+                                            </span>
+
+                                        @else
+                                            <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">
+                                                Rejected
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <button onclick='openDetailsModal(@json($achievement))' class="px-3 py-1 bg-[#005F5B] text-white rounded-lg text-xs hover:bg-[#004845]">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="5" class="py-12 text-center text-slate-500 font-bold">
-                                            <div class="flex flex-col items-center gap-2">
-                                                <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                                No submissions yet. Use the quick actions above to get started!
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="15" class="py-10 text-center text-gray-500">
+                                        No submissions yet. Use the quick actions above to get started!
+                                    </td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
 
@@ -291,7 +429,7 @@
                 <div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl overflow-hidden my-2">
                     <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                         <div>
-                            <h2 class="text-xl font-black text-slate-900">New Submission</h2>
+                            <h2 class="text-xl font-black text-[#005F5B]">New Submission</h2>
                             <p class="text-xs text-slate-500 font-semibold mt-0.5">Fill in all details and upload your proof document.</p>
                         </div>
                         <a href="{{ route('student.dashboard', ['tab' => 'academic-records']) }}" class="text-slate-500 hover:text-slate-700 text-sm font-bold p-2 bg-white rounded-full border shadow-sm transition">✕</a>
@@ -342,7 +480,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Student Name *</label>
-                                    <input type="text" name="title" required value="{{ old('title') }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all" placeholder="Achievement / Activity Title">
+                                    <input type="text" name="title" required value="{{ old('title') }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all" placeholder="Name">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Roll Number</label>
@@ -408,7 +546,7 @@
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
                                             <input type="radio" name="award_status" value="Participation" class="w-4 h-4 text-[#005F5B] border-slate-300 focus:ring-[#005F5B]" {{ $preAwardStatus === 'Participation' ? 'checked' : '' }}>
-                                            <span class="text-sm font-semibold text-slate-700">🎫 Participation</span>
+                                            <span class="text-sm font-semibold text-slate-700">🎟️ Participation</span>
                                         </label>
                                     </div>
                                 </div>
@@ -512,7 +650,12 @@
                 </div>
                 <div class="flex gap-2">
                     <a id="modal-file-view" href="#" target="_blank" class="px-4 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition">View</a>
-                    <a id="modal-file-download" href="#" download class="px-4 py-2 bg-[#005F5B] text-white rounded-xl text-xs font-bold hover:bg-[#004845] transition">Download</a>
+                    <a id="modal-file-download" href="#" download class="px-4 py-2 bg-[#005F5B] text-white rounded-xl text-xs font-bold">Download</a>
+                    <form id="delete-achievement-form" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button id="delete-achievement-btn" type="submit" onclick="return confirm('Delete this achievement?')" class="hidden px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -533,6 +676,72 @@
     </div>
 </div>
 
+{{-- Help Desk Ticket Modal --}}
+<div id="ticketModal"
+class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl w-full max-w-2xl p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Raise Help Desk Ticket</h2>
+            <button
+            onclick="document.getElementById('ticketModal').classList.add('hidden')"
+            class="text-xl">
+                ✕
+            </button>
+        </div>
+        <form action="{{ route('student.helpdesk.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label class="font-semibold">Category</label>
+                <select
+                    name="category"
+                    class="w-full border rounded-lg p-3 mt-2">
+                    <option>Technical</option>
+                    <option>Academics</option>
+                    <option>Submission</option>
+                    <option>Account</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="font-semibold">Subject</label>
+                <input
+                    type="text"
+                    name="subject"
+                    class="w-full border rounded-lg p-3 mt-2">
+            </div>
+            <div class="mb-4">
+                <label class="font-semibold">Description</label>
+                <textarea
+                    name="description"
+                    rows="5"
+                    class="w-full border rounded-lg p-3 mt-2"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="font-semibold">Attachment</label>
+                <input
+                    type="file"
+                    name="attachment"
+                    class="mt-2">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button
+                    type="button"
+                    onclick="document.getElementById('ticketModal').classList.add('hidden')"
+                    class="px-5 py-2 border rounded-lg">
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    class="bg-[#005F5B] text-white px-6 py-2 rounded-lg">
+                    Submit Ticket
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     // File upload name display
     document.getElementById('file-upload')?.addEventListener('change', function() {
@@ -544,6 +753,15 @@
     });
 
     function openDetailsModal(achievement) {
+        const deleteBtn = document.getElementById('delete-achievement-btn');
+        const deleteForm = document.getElementById('delete-achievement-form');
+        deleteForm.action = "{{ url('student/achievement') }}/" + achievement.id;
+        if (achievement.status === "Pending" || achievement.status === "Rejected") {
+            deleteBtn.classList.remove("hidden");
+        } else {
+            deleteBtn.classList.add("hidden");
+        }
+
         const modal = document.getElementById('details-modal');
         let formattedDate = 'N/A';
         if (achievement.created_at) {

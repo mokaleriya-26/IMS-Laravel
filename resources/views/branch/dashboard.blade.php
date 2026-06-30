@@ -44,7 +44,12 @@
                 <div class="w-9 h-9 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">{{ $user->initials() }}</div>
                 <div><p class="text-sm font-bold text-slate-800">{{ $user->name }}</p><p class="text-xs text-slate-500">Branch Admin</p></div>
             </div>
-            <form action="{{ route('logout') }}" method="POST">@csrf<button class="w-full text-sm font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl hover:bg-slate-200 transition text-left">Logout</button></form>
+            <div class="flex items-center gap-4">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                </form>
+            </div>
         </div>
     </aside>
     <div class="pl-64 flex-1">

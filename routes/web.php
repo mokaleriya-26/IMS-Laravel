@@ -9,6 +9,15 @@ use App\Http\Controllers\ClubMemberController;
 use App\Http\Controllers\ClubAdminController;
 use App\Http\Controllers\BranchAdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelpDeskController;
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/student/helpdesk/store',
+        [HelpDeskController::class,'store'])
+        ->name('student.helpdesk.store');
+
+});
 
 // ─── Guest Routes ────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
@@ -33,6 +42,13 @@ Route::middleware('auth')->group(function () {
         })->name('achievement.create');
         Route::post('/submit-achievement', [StudentController::class, 'storeAchievement'])->name('achievement.store');
         Route::get('/export', [StudentController::class, 'export'])->name('export');
+        Route::delete('/achievement/{achievement}', [StudentController::class, 'destroyAchievement'])
+        ->name('achievement.destroy');
+        Route::get('/jobs',[StudentController::class,'jobs'])
+        ->name('jobs');
+        Route::post('/jobs/{job}/apply',[StudentController::class,'apply'])
+        ->scopeBindings()
+        ->name('jobs.apply');
     });
 
     // ── Faculty Portal ────────────────────────────────────────────────────────

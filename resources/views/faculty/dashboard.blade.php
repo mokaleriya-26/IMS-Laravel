@@ -68,7 +68,7 @@
             @if($currentView === 'queue')
                 <div class="space-y-6">
                     <div>
-                        <h1 class="text-2xl font-black text-slate-900 tracking-tight">Verification Pipeline</h1>
+                        <h1 class="text-2xl font-black text-[#005F5B] tracking-tight">Verification Pipeline</h1>
                         <p class="text-sm text-slate-600 font-medium mt-1">Review student achievements, publications, and certificates.</p>
                     </div>
 
@@ -141,10 +141,10 @@
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
                         <table class="w-full text-left text-sm">
                             <thead>
-                                <tr class="border-b text-xs font-bold uppercase text-slate-500 bg-slate-50 tracking-wider">
+                                <tr class="border-b text-xs font-bold uppercase text-black bg-slate-50 tracking-wider">
                                     <th class="py-4 px-6">Student details</th>
                                     <th class="py-4 px-6">Category</th>
-                                    <th class="py-4 px-6">Milestone Headline</th>
+                                    <th class="py-4 px-6">Event Name</th>
                                     <th class="py-4 px-6">Status</th>
                                     <th class="py-4 px-6 text-center">Action</th>
                                 </tr>
@@ -161,7 +161,7 @@
                                                 {{ $item->category }}
                                             </span>
                                         </td>
-                                        <td class="py-4 px-6 font-bold text-slate-700 max-w-sm truncate">{{ $item->title }}</td>
+                                        <td class="py-4 px-6 font-bold text-slate-700 max-w-sm truncate">{{ $item->event_name ?? $item->title }}</td>
                                         <td class="py-4 px-6">
                                             @if($item->status === 'Approved')
                                                 <span class="text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-bold">● Verified</span>
@@ -205,7 +205,7 @@
                         <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-6">
                             <div>
                                 <span class="bg-[#EBF5F4] text-[#005F5B] text-xs font-extrabold px-3 py-1 rounded-md uppercase tracking-wider">{{ $selectedAchievement->category }}</span>
-                                <h2 class="text-xl font-black text-slate-900 mt-2 leading-snug">{{ $selectedAchievement->title }}</h2>
+                                <h2 class="text-xl font-black text-slate-900 mt-2 leading-snug">{{ $selectedAchievement->event_name ?? $selectedAchievement->title }}</h2>
                                 <p class="text-xs text-slate-500 font-semibold mt-1">Submitted on {{ $selectedAchievement->created_at ? $selectedAchievement->created_at->format('M d, Y \a\t h:i A') : now()->format('M d, Y') }}</p>
                             </div>
 
@@ -260,7 +260,7 @@
                         <div class="lg:col-span-5 space-y-6">
                             
                             <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4">
-                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Student Snapshot</h4>
+                                <h4 class="text-xs font-bold text-[#005F5B] uppercase tracking-wide">Student Snapshot</h4>
                                 <div class="flex items-center gap-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
                                     <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm">
                                         {{ strtoupper(substr($selectedAchievement->student->name ?? 'ST', 0, 2)) }}
@@ -277,14 +277,14 @@
                                         <span class="text-slate-800 truncate block mt-0.5">{{ $selectedAchievement->student->studentProfile->branch ?? '-' }}</span>
                                     </div>
                                     <div>
-                                        <span class="block text-[10px] text-slate-500 uppercase font-bold">Year Stage</span>
+                                        <span class="block text-[10px] text-slate-500 uppercase font-bold">Year</span>
                                         <span class="text-slate-800 block mt-0.5">{{ $selectedAchievement->student->studentProfile->year_of_study ?? '-' }} Year</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-xl shadow-slate-100/50 space-y-4">
-                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wide">Review & Verification</h4>
+                                <h4 class="text-xs font-bold text-[#005F5B] uppercase tracking-wide">Review & Verification</h4>
                                 
                                 <form action="{{ route('faculty.review.process', $selectedAchievement->id) }}" method="POST" class="space-y-4">
                                     @csrf
@@ -292,9 +292,9 @@
                                     <div>
                                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Verification Decision</label>
                                         <select name="status" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all">
-                                            <option value="Approved" {{ $selectedAchievement->status === 'Approved' ? 'selected' : '' }}>✅ Approve Achievement</option>
+                                            <option value="Approved" {{ $selectedAchievement->status === 'Approved' ? 'selected' : '' }}>✅ Approve</option>
                                             <option value="Pending" {{ $selectedAchievement->status === 'Pending' ? 'selected' : '' }}>⏳ Keep Pending</option>
-                                            <option value="Rejected" {{ $selectedAchievement->status === 'Rejected' ? 'selected' : '' }}>❌ Return / Reject</option>
+                                            <option value="Rejected" {{ $selectedAchievement->status === 'Rejected' ? 'selected' : '' }}>❌ Reject</option>
                                         </select>
                                     </div>
 

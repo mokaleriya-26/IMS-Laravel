@@ -7,16 +7,64 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\Achievement;
 use App\Models\Announcement;
+use App\Models\HelpTicket;
+use Illuminate\Support\Facades\Storage;
+use App\Models\PlacementJob;
+use App\Models\PlacementApplication;
 
 class StudentController extends Controller
 {
+    public function destroyAchievement($id)
+    {
+        $achievement = Achievement::where('id', $id)
+            ->where('student_id', auth()->id())
+            ->firstOrFail();
+
+        // Don't allow deleting approved achievements
+        if ($achievement->status === 'Approved') {
+            return back()->with('error', 'Approved achievements cannot be deleted.');
+        }
+
+        // Delete uploaded file
+        if ($achievement->file_path && Storage::disk('public')->exists($achievement->file_path)) {
+            Storage::disk('public')->delete($achievement->file_path);
+        }
+        $achievement->student_deleted = true;
+        $achievement->save();
+        return back()->with('success', 'Achievement deleted successfully.');
+    }
+
+    public function jobs()
+    {
+        $jobs = PlacementJob::where('status', 'Open')
+            ->latest()
+            ->get();
+        return view('student.jobs', compact('jobs'));
+    }
+
+    public function apply(PlacementJob $job)
+    {
+        PlacementApplication::firstOrCreate(
+            [
+                'student_id' => auth()->id(),
+                'job_id'     => $job->id,
+            ],
+            [
+                'status' => 'Applied',
+            ]
+        );
+        return back()->with('success', 'Application submitted.');
+    }
+
     /**
      * Display the dynamic unified student hub.
      */
     public function dashboard(Request $request)
     {
         $user         = Auth::user()->load('studentProfile');
-        $achievements = $user->achievements()->latest()->get();
+        $achievements = Achievement::where('student_id', $user->id)
+            ->where('student_deleted', false)
+            ->get();
 
         $approvedCount = $achievements->where('status', 'Approved')->count();
         $pendingCount  = $achievements->where('status', 'Pending')->count();
@@ -33,11 +81,15 @@ class StudentController extends Controller
         $preAwardStatus = $request->query('award_status', '');
 
         $currentTab = $request->query('tab', 'dashboard');
-
+        $jobs = PlacementJob::where('status', 'Open')
+            ->latest()
+            ->get();
+        $applications = PlacementApplication::where('student_id', auth()->id())
+            ->pluck('status','job_id');
         return view('student.dashboard', compact(
             'achievements', 'user', 'currentTab',
             'approvedCount', 'pendingCount', 'rejectedCount',
-            'announcements', 'preCategory', 'preAwardStatus'
+            'announcements', 'preCategory', 'preAwardStatus','jobs','applications'
         ));
     }
 
@@ -96,7 +148,6 @@ class StudentController extends Controller
     public function storeAchievement(Request $request)
     {
         $request->validate([
-            'title'             => 'required|string|max:255',
             'category'          => 'required|in:Internship,Certificate,Competition,Paper Publication,Event Participation',
             'description'       => 'required|string',
             'file'              => 'required|file|mimes:pdf,jpeg,png,jpg|max:10240',
@@ -112,9 +163,10 @@ class StudentController extends Controller
         ]);
 
         $path = $request->file('file')->store('submissions', 'public');
+        $recordTitle = $request->event_name ?: $request->category;
 
         $request->user()->achievements()->create([
-            'title'             => $request->title,
+            'title'             => $recordTitle,
             'category'          => $request->category,
             'description'       => $request->description,
             'file_path'         => $path,

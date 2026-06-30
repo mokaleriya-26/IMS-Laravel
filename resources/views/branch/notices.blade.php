@@ -11,7 +11,12 @@
             <a href="{{ route('branch.admin.notices') }}" class="block px-4 py-3 text-sm font-bold rounded-xl bg-amber-50 text-amber-700">Branch Notices</a>
             <a href="{{ route('branch.admin.reports') }}" class="block px-4 py-3 text-sm font-bold rounded-xl text-slate-600 hover:bg-slate-50">Branch Reports</a>
         </nav>
-        <div class="mt-auto"><form action="{{ route('logout') }}" method="POST">@csrf<button class="w-full text-sm font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl">Logout</button></form></div>
+        <div class="flex items-center gap-4">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+            </form>
+        </div>
     </aside>
     <div class="pl-64 flex-1">
         <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 sticky top-0 z-10 shadow-sm">

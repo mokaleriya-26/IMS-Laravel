@@ -46,20 +46,19 @@
                     <p class="text-xs text-slate-500">Administrator</p>
                 </div>
             </div>
-            <form action="{{ route('logout') }}" method="POST" class="mt-2">
-                @csrf
-                <button class="w-full text-sm font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl hover:bg-slate-200 transition text-left flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    Logout
-                </button>
-            </form>
+            <div class="flex items-center gap-4">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                </form>
+            </div>
         </div>
     </aside>
 
     {{-- Main Content --}}
     <div class="pl-64 flex-1 flex flex-col">
         <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 sticky top-0 z-10 shadow-sm">
-            <h1 class="text-lg font-black text-slate-800">Placement Cell Dashboard</h1>
+            <h1 class="text-lg font-black text-[#005F5B]">Placement Cell Dashboard</h1>
         </header>
         <main class="p-8 flex-1">
 
@@ -110,7 +109,7 @@
                     <a href="{{ route('placement.jobs') }}" class="text-sm font-bold text-[#005F5B] hover:underline">View All</a>
                 </div>
                 <table class="w-full text-sm">
-                    <thead><tr class="bg-slate-50 text-xs font-bold uppercase text-slate-500 tracking-wider border-b">
+                    <thead><tr class="bg-slate-50 text-xs font-bold uppercase text-black tracking-wider border-b">
                         <th class="py-3 px-5 text-left">Company</th>
                         <th class="py-3 px-5 text-left">Position</th>
                         <th class="py-3 px-5 text-left">Type</th>
