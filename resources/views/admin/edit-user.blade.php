@@ -14,8 +14,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">EduManage IMS</h3>
-                    <p class="text-[11px] text-[#005F5B] font-bold">System Administrator</p>
+                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">System Administrator</h3>
+                    <p class="text-[11px] text-[#005F5B] font-bold">EduManage IMS</p>
                 </div>
             </div>
 
@@ -37,11 +37,35 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857"/></svg>
                     Manage Faculty
                 </a>
+
+                <a href="{{ route('admin.users', ['role' => 'placement_cell']) }}" 
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Placement Accounts
+                </a>
+
+                <a href="{{ route('admin.users', ['role' => 'club_admin']) }}" 
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Club Admins
+                </a>
+
+                <a href="{{ route('admin.users', ['role' => 'branch_admin']) }}" 
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9"/></svg>
+                    Branch Admins
+                </a>
+
+                <a href="{{ route('admin.announcements') }}" 
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+                    Announcements
+                </a>
             </nav>
         </div>
 
         <div class="p-4 border-t border-slate-100 m-4 rounded-2xl flex items-center gap-3 bg-slate-50/50">
-            <div class="w-10 h-10 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">
                 {{ Auth::user()->initials() }}
             </div>
             <div class="overflow-hidden">
@@ -56,11 +80,23 @@
         
         {{-- Header --}}
         <header class="h-20 bg-white border-b border-slate-200/80 flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
-            <div class="font-extrabold text-slate-800 text-lg">Edit {{ ucfirst(str_replace('_', ' ', $user->role)) }} Account</div>
+            <div class="font-extrabold text-[#005F5B] text-lg">Edit {{ ucfirst(str_replace('_', ' ', $user->role)) }} Account</div>
             <div class="flex items-center gap-4">
+                <a href="{{ route('admin.users') }}"class="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-[#005F5B] transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </a>
+                <div class="h-6 w-px bg-slate-300"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                    <button type="submit" class="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                        </svg>
+                        Logout
+                    </button>
                 </form>
             </div>
         </header>
@@ -73,7 +109,6 @@
                         <h2 class="text-xl font-black text-slate-900">Edit Form</h2>
                         <p class="text-xs text-slate-500 font-medium mt-0.5">Update account properties for {{ $user->name }}.</p>
                     </div>
-                    <a href="{{ route('admin.users', ['role' => $user->role]) }}" class="text-slate-450 hover:text-slate-700 text-sm font-bold p-2 bg-white rounded-full border shadow-sm transition">✕</a>
                 </div>
 
                 @if($errors->any())

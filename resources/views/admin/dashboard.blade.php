@@ -14,8 +14,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">EduManage IMS</h3>
-                    <p class="text-[11px] text-[#005F5B] font-bold">System Administrator</p>
+                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">System Administrator</h3>
+                    <p class="text-[11px] text-[#005F5B] font-bold">EduManage IMS</p>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
         </div>
 
         <div class="p-4 border-t border-slate-100 m-4 rounded-2xl flex items-center gap-3 bg-slate-50/50">
-            <div class="w-10 h-10 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">
                 {{ Auth::user()->initials() }}
             </div>
             <div class="overflow-hidden">
@@ -80,11 +80,16 @@
         
         {{-- Header --}}
         <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
-            <div class="font-extrabold text-slate-800 text-lg">System Administration Overview</div>
+            <div class="font-extrabold text-[#005F5B] text-lg">System Administration Overview</div>
             <div class="flex items-center gap-4">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                    <button type="submit" class="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                        </svg>
+                        Logout
+                    </button>
                 </form>
             </div>
         </header>
@@ -97,8 +102,11 @@
                 <h2 class="text-3xl font-extrabold tracking-tight">System Control Center</h2>
                 <p class="text-[#EBF5F4]/80 text-[14px] mt-1">Manage institutional portals, user credentials, assignments, notices, and analytics.</p>
                 <div class="flex gap-3 mt-4">
-                    <a href="{{ route('admin.users.create') }}" class="bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
-                        + Create User Account
+                    <a href="{{ route('admin.users.create', ['role' => 'student']) }}" class="inline-flex items-center gap-2 bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        <span>Create Student Account</span>
                     </a>
                 </div>
             </div>
@@ -106,20 +114,20 @@
             {{-- Stats --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                    <p class="text-xs font-bold text-slate-600 mb-2">Total Students</p>
-                    <h3 class="text-3xl font-black text-slate-900">{{ $totalStudents }}</h3>
+                    <p class="text-md font-bold text-slate-800 mb-2">Total Students</p>
+                    <h3 class="text-3xl font-black text-[#005F5B]">{{ $totalStudents }}</h3>
                 </div>
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                    <p class="text-xs font-bold text-slate-600 mb-2">Faculty Members</p>
-                    <h3 class="text-3xl font-black text-slate-900">{{ $totalFaculty }}</h3>
+                    <p class="text-md font-bold text-slate-800 mb-2">Faculty Members</p>
+                    <h3 class="text-3xl font-black text-[#005F5B]">{{ $totalFaculty }}</h3>
                 </div>
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                    <p class="text-xs font-bold text-slate-600 mb-2">Branch Admins</p>
+                    <p class="text-md font-bold text-slate-800 mb-2">Branch Admins</p>
                     <h3 class="text-3xl font-black text-[#005F5B]">{{ $branchAdmins }}</h3>
                 </div>
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                    <p class="text-xs font-bold text-slate-600 mb-2">Club Admins</p>
-                    <h3 class="text-3xl font-black text-purple-600">{{ $clubAdmins }}</h3>
+                    <p class="text-md font-bold text-slate-800 mb-2">Club Admins</p>
+                    <h3 class="text-3xl font-black text-[#005F5B]">{{ $clubAdmins }}</h3>
                 </div>
             </div>
 
@@ -129,13 +137,13 @@
                 {{-- Recent Achievements --}}
                 <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
                     <div class="p-5 border-b bg-slate-50/50 flex justify-between items-center">
-                        <h4 class="font-extrabold text-slate-800">Recent Achievement Activity</h4>
+                        <h4 class="font-extrabold text-[#005F5B]">Recent Achievement Activity</h4>
                         <span class="text-xs font-bold text-slate-500">Last 5 submissions</span>
                     </div>
                     <div class="divide-y divide-slate-100 overflow-x-auto">
                         <table class="w-full text-left text-sm">
                             <thead>
-                                <tr class="bg-slate-50/20 text-xs font-bold uppercase text-slate-500 border-b">
+                                <tr class="bg-slate-50/20 text-xs font-bold uppercase text-black border-b">
                                     <th class="py-3 px-4">Student</th>
                                     <th class="py-3 px-4">Title</th>
                                     <th class="py-3 px-4">Status</th>
@@ -173,7 +181,7 @@
                 {{-- Recent Registered Users --}}
                 <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
                     <div class="p-5 border-b bg-slate-50/50 flex justify-between items-center">
-                        <h4 class="font-extrabold text-slate-800">Recently Added Students</h4>
+                        <h4 class="font-extrabold text-[#005F5B]">Recently Added Students</h4>
                         <a href="{{ route('admin.users', ['role' => 'student']) }}" class="text-xs font-bold text-[#005F5B] hover:underline">View All &rarr;</a>
                     </div>
                     <div class="divide-y divide-slate-100">

@@ -37,7 +37,7 @@
         </div>
         <div class="p-4 border-t border-slate-100">
             <div class="p-3 rounded-2xl bg-slate-50 flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">PC</div>
+                <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">PC</div>
                 <div>
                     <p class="text-sm font-bold text-slate-800">Placement Cell</p>
                     <p class="text-xs text-slate-500">Administrator</p>
@@ -50,8 +50,11 @@
             <h1 class="text-lg font-black text-[#005F5B]">Jobs & Placement Drives</h1>
             <div class="flex items-center gap-4">
                 <a href="{{ route('placement.jobs.create') }}" class="bg-[#005F5B] text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#004845] transition flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                    Post Drive</a>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Post Drive
+                </a>
                 <div class="h-6 w-px bg-slate-300"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

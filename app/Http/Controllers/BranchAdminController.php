@@ -38,6 +38,7 @@ class BranchAdminController extends Controller
 
     public function students(Request $request)
     {
+        $user   = Auth::user();
         $branch = $this->getBranch();
         $query  = User::where('role', 'student')
                     ->whereHas('studentProfile', fn($q) => $q->where('branch', $branch))
@@ -51,21 +52,23 @@ class BranchAdminController extends Controller
         }
 
         $students = $query->get();
-        return view('branch.students', compact('students', 'branch'));
+        return view('branch.students', compact('user','students', 'branch'));
     }
 
     public function faculty(Request $request)
     {
+        $user   = Auth::user();
         $branch  = $this->getBranch();
         $faculty = User::where('role', 'faculty')->where('assigned_branch', $branch)->get();
-        return view('branch.faculty', compact('faculty', 'branch'));
+        return view('branch.faculty', compact('user','faculty', 'branch'));
     }
 
     public function notices()
     {
+        $user   = Auth::user();
         $branch  = $this->getBranch();
         $notices = Announcement::where('type', 'branch')->where('target', $branch)->latest()->get();
-        return view('branch.notices', compact('notices', 'branch'));
+        return view('branch.notices', compact('user','notices', 'branch'));
     }
 
     public function storeNotice(Request $request)
@@ -91,6 +94,7 @@ class BranchAdminController extends Controller
 
     public function reports()
     {
+        $user   = Auth::user();
         $branch = $this->getBranch();
         $achievements = Achievement::whereHas('student.studentProfile', fn($q) => $q->where('branch', $branch))
                             ->with('student.studentProfile')
@@ -103,11 +107,12 @@ class BranchAdminController extends Controller
             'rejected' => $achievements->where('status', 'Rejected')->count(),
         ];
 
-        return view('branch.reports', compact('achievements', 'stats', 'branch'));
+        return view('branch.reports', compact('user','achievements', 'stats', 'branch'));
     }
 
     public function requests(Request $request)
     {
+        $user   = Auth::user();
         $branch = $this->getBranch();
         $achievements = Achievement::whereHas('student.studentProfile', fn($q) => $q->where('branch', $branch))
                             ->where('status', 'Pending')
@@ -115,7 +120,7 @@ class BranchAdminController extends Controller
                             ->latest()
                             ->get();
 
-        return view('branch.requests', compact('achievements', 'branch'));
+        return view('branch.requests', compact('user','achievements', 'branch'));
     }
 
     public function approveRequest(Request $request, Achievement $achievement)

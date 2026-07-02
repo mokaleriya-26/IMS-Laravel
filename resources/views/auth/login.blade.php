@@ -118,12 +118,6 @@
                 </button>
             </form>
             
-            @if($role === 'student')
-                <div class="text-center mt-6 text-sm text-gray-500">
-                    New candidate? <a href="{{ route('register') }}" class="text-[#005F5B] font-bold hover:underline">Create an account</a>
-                </div>
-            @endif
-
         </div>
     </div>
 

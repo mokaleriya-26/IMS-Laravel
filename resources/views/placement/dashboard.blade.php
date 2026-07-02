@@ -40,7 +40,7 @@
         </div>
         <div class="p-4 border-t border-slate-100">
             <div class="p-3 rounded-2xl bg-slate-50 flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">PC</div>
+                <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">PC</div>
                 <div>
                     <p class="text-sm font-bold text-slate-800">Placement Cell</p>
                     <p class="text-xs text-slate-500">Administrator</p>
@@ -78,9 +78,11 @@
             <div class="bg-[#005F5B] rounded-3xl p-8 text-white relative overflow-hidden shadow-xl shadow-[#005F5B]/10 mb-6">
                 <h2 class="text-3xl font-extrabold tracking-tight">Placement Cell Portal</h2>
                 <p class="text-[#EBF5F4]/80 mt-1 text-sm">Manage recruitment drives, student applications, and placement statistics.</p>
-                <a href="{{ route('placement.jobs.create') }}" class="mt-4 inline-flex bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                    Post New Drive
+                <a href="{{ route('placement.jobs.create') }}" class="inline-flex items-center gap-2 mt-4 bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span>Post New Drive</span>
                 </a>
             </div>
 

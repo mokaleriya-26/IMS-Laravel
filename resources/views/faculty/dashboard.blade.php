@@ -13,8 +13,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">EduManage IMS</h3>
-                    <p class="text-[11px] text-[#005F5B] font-bold">Faculty Verifier</p>
+                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">Faculty Portal</h3>
+                    <p class="text-[11px] text-slate-500 font-medium">EduStream IMS</p>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
     <div class="pl-64 flex-1 flex flex-col min-h-screen">
         
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 sticky top-0 z-10">
-            <h2 class="text-base font-black text-slate-800">Faculty Reviewer Space</h2>
+            <h2 class="text-base font-black text-[#005F5B]">Faculty Reviewer Space</h2>
             <div class="flex items-center gap-4">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

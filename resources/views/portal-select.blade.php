@@ -103,11 +103,11 @@
                 <span class="text-[#005F5B] group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
             </a>
         </div>
-
         <div class="text-center mt-6 text-sm text-slate-500">
-            New student? <a href="{{ route('register') }}" class="text-[#005F5B] font-semibold hover:underline">Register here</a>
+            New student? Contact Branch Admin for access.
         </div>
     </div>
+    
 
     <footer class="text-center text-xs text-slate-400 space-y-1 mt-6">
         <p>&copy; {{ date('Y') }} EduStream IMS. All Rights Reserved.</p>

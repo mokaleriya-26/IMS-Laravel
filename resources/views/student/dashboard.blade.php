@@ -13,8 +13,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">EduStream IMS</h3>
-                    <p class="text-[11px] text-slate-500 font-medium">Student Portal</p>
+                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">Student Portal</h3>
+                    <p class="text-[11px] text-slate-500 font-medium">EduStream IMS</p>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
         </div>
 
         <a href="{{ route('student.profile') }}" class="p-4 border-t border-slate-100 m-4 rounded-2xl flex items-center gap-3 bg-slate-50/50 hover:bg-slate-100/70 transition group">
-            <div class="w-10 h-10 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">
                 {{ $user->initials() }}
             </div>
             <div class="overflow-hidden">
@@ -152,8 +152,11 @@
                         <h2 class="text-3xl font-extrabold tracking-tight">Welcome back, {{ $user->name }} 👋</h2>
                         <p class="text-[#EBF5F4]/80 text-[14px] mt-1">Manage and submit your academic achievements effortlessly.</p>
                         <div class="flex gap-3 mt-5">
-                            <a href="{{ route('student.dashboard', ['tab' => 'submissions']) }}" class="bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
-                                + New Submission
+                            <a href="{{ route('student.dashboard', ['tab' => 'submissions']) }}" class="inline-flex items-center gap-2 bg-white text-[#005F5B] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#EBF5F4] transition shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                                </svg>
+                                <span>New Submission</span>
                             </a>
                             <a href="{{ route('student.dashboard', ['tab' => 'academic-records']) }}" class="bg-white/10 text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-white/20 transition border border-white/20">
                                 View Records

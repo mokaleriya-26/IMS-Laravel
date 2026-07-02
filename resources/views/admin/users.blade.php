@@ -14,8 +14,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">EduManage IMS</h3>
-                    <p class="text-[11px] text-[#005F5B] font-bold">System Administrator</p>
+                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">System Administrator</h3>
+                    <p class="text-[11px] text-[#005F5B] font-bold">EduManage IMS</p>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
         </div>
 
         <div class="p-4 border-t border-slate-100 m-4 rounded-2xl flex items-center gap-3 bg-slate-50/50">
-            <div class="w-10 h-10 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">
                 {{ Auth::user()->initials() }}
             </div>
             <div class="overflow-hidden">
@@ -80,17 +80,22 @@
         
         {{-- Header --}}
         <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
-            <div class="font-extrabold text-slate-800 text-lg">Manage {{ ucfirst(str_replace('_', ' ', $role)) }} Accounts</div>
+            <div class="font-extrabold text-[#005F5B] text-lg">Manage {{ ucfirst(str_replace('_', ' ', $role)) }} Accounts</div>
             <div class="flex items-center gap-4">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                    <button type="submit" class="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                        </svg>
+                        Logout
+                    </button>
                 </form>
             </div>
         </header>
 
         {{-- Main Body --}}
-        <main class="p-8 flex-1 space-y-6">
+        <main class="p-8 flex-1 space-y-6 overflow-x-auto">
             
             @if(session('success'))
                 <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold rounded-2xl">
@@ -104,7 +109,7 @@
                     <p class="text-sm text-slate-500 font-medium mt-1">Add, update, or remove credentials in the institution system.</p>
                 </div>
                 <a href="{{ route('admin.users.create', ['role' => $role]) }}" class="bg-[#005F5B] text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#004845] shadow-md transition flex items-center gap-1.5">
-                    + Add New {{ ucfirst(str_replace('_', ' ', $role)) }}
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Add New {{ ucfirst(str_replace('_', ' ', $role)) }}
                 </a>
             </div>
 
@@ -141,9 +146,10 @@
 
             {{-- Table --}}
             <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                <table class="w-full text-left text-sm text-slate-600">
-                    <thead>
-                        <tr class="border-b text-xs font-bold uppercase text-slate-500 bg-slate-50/60 tracking-wider">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-full text-left text-sm text-slate-600">
+                        <thead>
+                        <tr class="border-b text-xs font-bold uppercase text-black bg-slate-50/60 tracking-wider">
                             <th class="py-4 px-6">Name / Credentials</th>
                             <th class="py-4 px-6">Username</th>
                             <th class="py-4 px-6">Email Address</th>
@@ -166,22 +172,22 @@
                                         <div class="w-9 h-9 rounded-full bg-[#EBF5F4] text-[#005F5B] flex items-center justify-center font-bold text-xs">
                                             {{ $userItem->initials() }}
                                         </div>
-                                        <span class="font-bold text-slate-800">{{ $userItem->name }}</span>
+                                        <span class="font-bold text-slate-700">{{ $userItem->name }}</span>
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 font-semibold text-slate-700">{{ $userItem->username ?: '-' }}</td>
-                                <td class="py-4 px-6 text-slate-500">{{ $userItem->email ?: '-' }}</td>
+                                <td class="py-4 px-6 text-slate-700">{{ $userItem->email ?: '-' }}</td>
                                 @if($role === 'student')
                                     <td class="py-4 px-6 font-bold text-slate-700">{{ $userItem->studentProfile->roll_number ?? '-' }}</td>
                                     <td class="py-4 px-6">
-                                        <span class="text-xs bg-[#EBF5F4] text-[#005F5B] font-extrabold px-2.5 py-1 rounded-md">
+                                        <span class="text-xs text-slate-700 font-extrabold px-2.5 py-1 rounded-md">
                                             {{ $userItem->studentProfile->branch ?? 'N/A' }} (Year {{ $userItem->studentProfile->year_of_study ?? 'N/A' }})
                                         </span>
                                     </td>
                                 @elseif($role === 'branch_admin' || $role === 'faculty')
-                                    <td class="py-4 px-6 font-bold text-slate-750">{{ $userItem->assigned_branch ?? 'General' }}</td>
+                                    <td class="py-4 px-6 font-bold text-slate-700">{{ $userItem->assigned_branch ?? 'General' }}</td>
                                 @elseif($role === 'club_admin')
-                                    <td class="py-4 px-6 font-bold text-slate-750">{{ $userItem->assigned_club ?? 'General' }}</td>
+                                    <td class="py-4 px-6 font-bold text-slate-700">{{ $userItem->assigned_club ?? 'General' }}</td>
                                 @endif
                                 <td class="py-4 px-6 text-center">
                                     <div class="inline-flex gap-2">
@@ -206,9 +212,9 @@
                             </tr>
                         @endforelse
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
-
         </main>
     </div>
 </div>

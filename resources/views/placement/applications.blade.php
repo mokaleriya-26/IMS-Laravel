@@ -37,7 +37,7 @@
         </div>
         <div class="p-4 border-t border-slate-100">
             <div class="p-3 rounded-2xl bg-slate-50 flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-sm">PC</div>
+                <div class="w-10 h-10 rounded-xl bg-[#005F5B] text-white flex items-center justify-center font-bold text-sm shadow-md">PC</div>
                 <div>
                     <p class="text-sm font-bold text-slate-800">Placement Cell</p>
                     <p class="text-xs text-slate-500">Administrator</p>
