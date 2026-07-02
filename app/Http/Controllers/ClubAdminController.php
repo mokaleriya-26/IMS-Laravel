@@ -50,21 +50,50 @@ class ClubAdminController extends Controller
     public function storeEvent(Request $request)
     {
         $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string',
-            'event_date'  => 'required|date',
-            'location'    => 'nullable|string|max:255',
-            'status'      => 'required|in:Scheduled,Completed,Cancelled',
+            'title'=>'required|string|max:255',
+            'description'=>'required',
+            'from_date'=>'required|date',
+            'to_date'=>'required|date|after_or_equal:from_date',
+            'location'=>'nullable|string|max:255',
+            'venue'=>'nullable|string|max:255',
+            'event_category'=>'nullable|string|max:255',
+            'start_time'=>'nullable|date_format:H:i',
+            'end_time'=>'nullable|date_format:H:i',
+            'registration_deadline'=>'nullable|date|before_or_equal:to_date',
+            'max_participants'=>'nullable|integer|min:1',
+            'organizer'=>'nullable|string|max:255',
+            'registration_status'=>'nullable|in:Open,Closed',
+            'status'=>'required|in:Scheduled,Completed,Cancelled',
+            'event_banner'=>'nullable|file|mimes:jpg,jpeg,png|max:10240',
+            'brochure'=>'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240'
         ]);
 
-        ClubEvent::create([
-            'club_name'   => $this->getClubName(),
-            'title'       => $request->title,
-            'description' => $request->description,
-            'event_date'  => $request->event_date,
-            'location'    => $request->location,
-            'status'      => $request->status,
-        ]);
+        $data = [
+            'club_name'=>$this->getClubName(),
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'from_date'=>$request->from_date,
+            'to_date'=>$request->to_date,
+            'location'=>$request->location,
+            'venue'=>$request->venue,
+            'event_category'=>$request->event_category,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
+            'registration_deadline'=>$request->registration_deadline,
+            'max_participants'=>$request->max_participants,
+            'organizer'=>$request->organizer,
+            'registration_status'=>$request->registration_status ?? 'Open',
+            'status'=>$request->status,
+        ];
+
+        if($request->hasFile('event_banner')){
+            $data['event_banner'] = $request->file('event_banner')->store('club_events','public');
+        }
+        if($request->hasFile('brochure')){
+            $data['brochure'] = $request->file('brochure')->store('club_events','public');
+        }
+
+        ClubEvent::create($data);
 
         return redirect()->route('club.admin.events')->with('success', 'Event created successfully!');
     }
@@ -77,7 +106,33 @@ class ClubAdminController extends Controller
 
     public function updateEvent(Request $request, ClubEvent $event)
     {
-        $event->update($request->only(['title', 'description', 'event_date', 'location', 'status']));
+        $data = $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'from_date'=>'required|date',
+            'to_date'=>'required|date|after_or_equal:from_date',
+            'location'=>'nullable|string|max:255',
+            'venue'=>'nullable|string|max:255',
+            'event_category'=>'nullable|string|max:255',
+            'start_time'=>'nullable|date_format:H:i',
+            'end_time'=>'nullable|date_format:H:i',
+            'registration_deadline'=>'nullable|date|before_or_equal:to_date',
+            'max_participants'=>'nullable|integer|min:1',
+            'organizer'=>'nullable|string|max:255',
+            'registration_status'=>'nullable|in:Open,Closed',
+            'status'=>'required|in:Scheduled,Completed,Cancelled',
+            'event_banner'=>'nullable|file|mimes:jpg,jpeg,png|max:10240',
+            'brochure'=>'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240'
+        ]);
+
+        if($request->hasFile('event_banner')){
+            $data['event_banner'] = $request->file('event_banner')->store('club_events','public');
+        }
+        if($request->hasFile('brochure')){
+            $data['brochure'] = $request->file('brochure')->store('club_events','public');
+        }
+
+        $event->update($data);
         return redirect()->route('club.admin.events')->with('success', 'Event updated successfully!');
     }
 

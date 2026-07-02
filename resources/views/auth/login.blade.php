@@ -25,7 +25,6 @@
                     'faculty'        => 'Faculty',
                     'admin'          => 'Main Admin',
                     'placement_cell' => 'Placement Cell',
-                    'club_login'     => 'Club Member',
                     'club_admin'     => 'Club Admin',
                     'branch_admin'   => 'Branch Admin',
                 ];
@@ -34,7 +33,6 @@
                     'faculty'        => 'Review, evaluate, and authenticate student credentials.',
                     'admin'          => 'Full system control — manage users, roles, and analytics.',
                     'placement_cell' => 'Manage placement drives, companies, and student eligibility.',
-                    'club_login'     => 'View club events, register, and submit activity reports.',
                     'club_admin'     => 'Create events, manage members, and publish announcements.',
                     'branch_admin'   => 'Oversee branch students, faculty, and academic reports.',
                 ];

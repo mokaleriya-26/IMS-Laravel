@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     protected $validRoles = [
         'student', 'faculty', 'admin', 
-        'placement_cell', 'club_login', 'club_admin', 'branch_admin'
+        'placement_cell', 'club_admin', 'branch_admin'
     ];
 
     // Display portal selector splash page
@@ -36,7 +36,7 @@ class AuthController extends Controller
         $request->validate([
             'login'    => 'required|string',
             'password' => 'required|string',
-            'role'     => 'required|in:student,faculty,admin,placement_cell,club_login,club_admin,branch_admin',
+            'role'     => 'required|in:student,faculty,admin,placement_cell,club_admin,branch_admin',
         ]);
 
         $loginField = $request->login;
@@ -71,7 +71,6 @@ class AuthController extends Controller
             'admin'          => redirect()->route('admin.dashboard'),
             'faculty'        => redirect()->route('faculty.dashboard'),
             'placement_cell' => redirect()->route('placement.dashboard'),
-            'club_login'     => redirect()->route('club.member.dashboard'),
             'club_admin'     => redirect()->route('club.admin.dashboard'),
             'branch_admin'   => redirect()->route('branch.admin.dashboard'),
             default          => redirect()->route('student.dashboard'),

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\Achievement;
 use App\Models\Announcement;
+use App\Models\ClubEvent;
+use App\Models\ClubEventRegistration;
 use App\Models\HelpTicket;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PlacementJob;
@@ -56,6 +58,40 @@ class StudentController extends Controller
         return back()->with('success', 'Application submitted.');
     }
 
+    public function registerForEvent(ClubEvent $event)
+    {
+        $user = Auth::user();
+
+        if ($event->status !== 'Scheduled' || ($event->registration_status ?? 'Open') === 'Closed') {
+            return back()->with('error', 'Registration is not open for this event.');
+        }
+
+        $already = ClubEventRegistration::where('event_id', $event->id)
+            ->where('student_id', $user->id)
+            ->exists();
+
+        if ($already) {
+            return back()->with('error', 'You are already registered for this event.');
+        }
+
+        if ($event->max_participants && $event->registrations_count >= $event->max_participants) {
+            return back()->with('error', 'This event is already full.');
+        }
+
+        if ($event->registration_deadline && now()->isAfter($event->registration_deadline)) {
+            return back()->with('error', 'Registration deadline has passed.');
+        }
+
+        ClubEventRegistration::create([
+            'event_id'   => $event->id,
+            'student_id' => $user->id,
+            'status'     => 'Pending',
+            'attendance' => 'Pending',
+        ]);
+
+        return back()->with('success', 'Successfully registered for ' . $event->title);
+    }
+
     /**
      * Display the dynamic unified student hub.
      */
@@ -70,11 +106,13 @@ class StudentController extends Controller
         $pendingCount  = $achievements->where('status', 'Pending')->count();
         $rejectedCount = $achievements->where('status', 'Rejected')->count();
 
-        // Announcements for the marquee bar (general + branch-specific)
+        // Announcements for the marquee bar (general + branch-specific + club-specific)
         $branch = optional($user->studentProfile)->branch;
-        $announcements = Announcement::where('type', 'general')
-            ->orWhere(fn($q) => $q->where('type', 'branch')->where('target', $branch))
-            ->latest()->take(10)->get();
+        $announcements = Announcement::where(fn($q) => 
+            $q->where('type', 'general')
+              ->orWhere(fn($q2) => $q2->where('type', 'branch')->where('target', $branch))
+              ->orWhere(fn($q3) => $q3->where('type', 'club')) // Include all club announcements
+        )->latest()->take(10)->get();
 
         // Pre-selected category from quick-action cards
         $preCategory    = $request->query('category', 'Certificate');
@@ -86,10 +124,36 @@ class StudentController extends Controller
             ->get();
         $applications = PlacementApplication::where('student_id', auth()->id())
             ->pluck('status','job_id');
+
+        $events = null;
+        $clubNames = collect();
+        $selectedClub = $request->query('club', '');
+
+        if ($currentTab === 'events') {
+            $query = ClubEvent::with('club')
+                ->withCount('registrations')
+                ->with(['registrations' => function ($query) {
+                    $query->where('student_id', auth()->id());
+                }])
+                ->orderByDesc('from_date');
+
+            $clubNames = ClubEvent::select('club_name')
+                ->distinct()
+                ->orderBy('club_name')
+                ->pluck('club_name');
+
+            if ($selectedClub) {
+                $query->where('club_name', $selectedClub);
+            }
+
+            $events = $query->get();
+        }
+
         return view('student.dashboard', compact(
             'achievements', 'user', 'currentTab',
             'approvedCount', 'pendingCount', 'rejectedCount',
-            'announcements', 'preCategory', 'preAwardStatus','jobs','applications'
+            'announcements', 'preCategory', 'preAwardStatus','jobs','applications', 'events',
+            'clubNames', 'selectedClub'
         ));
     }
 

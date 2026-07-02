@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -28,6 +29,18 @@ class User extends Authenticatable
     public function clubRegistrations(): HasMany
     {
         return $this->hasMany(ClubEventRegistration::class, 'student_id');
+    }
+
+    public function clubs(): BelongsToMany
+    {
+        return $this->belongsToMany(Club::class, 'club_members')
+            ->withPivot(['role', 'position', 'joined_at'])
+            ->withTimestamps();
+    }
+
+    public function clubMemberships(): HasMany
+    {
+        return $this->hasMany(ClubMember::class);
     }
 
     /**

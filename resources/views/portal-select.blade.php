@@ -58,20 +58,6 @@
                 <span class="text-slate-400 group-hover:text-[#005F5B] group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
             </a>
 
-            {{-- Club Member --}}
-            <a href="{{ route('login', 'club_login') }}" class="portal-card flex items-center justify-between p-4 border border-dashed border-slate-200 rounded-2xl hover:border-[#005F5B] hover:bg-[#EBF5F4]/30 transition group">
-                <div class="flex items-center gap-3.5">
-                    <div class="p-2.5 bg-purple-50 text-purple-600 rounded-xl group-hover:bg-[#005F5B] group-hover:text-white transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-[15px]">Club Login</h4>
-                        <p class="text-xs text-slate-500 mt-0.5">View events, register & submit club reports</p>
-                    </div>
-                </div>
-                <span class="text-slate-400 group-hover:text-[#005F5B] group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
-            </a>
-
             {{-- Club Admin --}}
             <a href="{{ route('login', 'club_admin') }}" class="portal-card flex items-center justify-between p-4 border border-dashed border-slate-200 rounded-2xl hover:border-[#005F5B] hover:bg-[#EBF5F4]/30 transition group">
                 <div class="flex items-center gap-3.5">

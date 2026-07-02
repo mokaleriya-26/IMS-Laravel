@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex min-h-screen bg-[#F8FAFC]">
+<div class="flex min-h-screen bg-[#F8FAFC] overflow-x-hidden">
     
     {{-- Sidebar --}}
     <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between fixed h-full z-20 shadow-sm">
@@ -21,28 +21,45 @@
             <nav class="space-y-1">
                 <a href="{{ route('student.dashboard', ['tab' => 'dashboard']) }}" 
                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'dashboard' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"/></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"/>
+                    </svg>
                     Dashboard
                 </a>
                 
                 <a href="{{ route('student.dashboard', ['tab' => 'academic-records']) }}" 
                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'academic-records' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
                     My Records
                 </a>
 
                 <a href="{{ route('student.dashboard', ['tab' => 'submissions']) }}" 
                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'submissions' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
                     New Submission
                 </a>
 
                 <a href="{{ route('student.dashboard',['tab'=>'placement']) }}"
-                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'submissions' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'placement' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-6-3v2a6 6 0 0012 0v-2"/>
                     </svg>
                     Placement
+                </a>
+
+                <a href="{{ route('student.dashboard', ['tab' => 'events']) }}"
+                   class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentTab === 'events' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3v1h6v-1c0-1.657-1.343-3-3-3z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 20a7 7 0 0114 0"/>
+                    </svg>
+                    Events
                 </a>
 
                 <a href="{{ route('student.dashboard', ['tab' => 'help-desk']) }}"
@@ -67,7 +84,7 @@
     </aside>
 
     {{-- Main Content --}}
-    <div class="pl-64 flex-1 flex flex-col min-h-screen overflow-x-hidden">
+    <div class="pl-64 flex-1 flex flex-col min-h-screen overflow-x-hidden box-border">
         
         {{-- Header --}}
         <header class="bg-white border-b border-slate-200/80 sticky top-0 z-10 shadow-sm">
@@ -79,7 +96,11 @@
                     <marquee behavior="scroll" direction="left" scrollamount="3" class="w-full">
                         @foreach($announcements as $ann)
                             <span class="cursor-pointer mr-10 hover:underline" onclick="openAnnouncementModal('{{ addslashes($ann->title) }}', '{{ addslashes($ann->content) }}')">
-                                {{ $ann->title }}
+                                @if($ann->type === 'club')
+                                    {{ $ann->title }} - {{ $ann->target }}
+                                @else
+                                    {{ $ann->title }}
+                                @endif
                             </span>
                             @if(!$loop->last)<span class="mr-10 opacity-50">•</span>@endif
                         @endforeach
@@ -96,14 +117,19 @@
                 <div class="flex items-center gap-4">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
+                        <button type="submit" class="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                            </svg>
+                            Logout
+                        </button>
                     </form>
                 </div>
             </div>
         </header>
 
-        <main class="flex-1 p-8 max-w-full overflow-x-hidden">
-            
+        <main class="flex-1 p-8 w-full overflow-x-hidden box-border">
+        <div class="max-w-7xl mx-auto w-full">
             @if(session('success'))
                 <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm font-semibold flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -215,22 +241,160 @@
                     </div>
                 </div>
 
+            {{-- ── Events Tab ───────────────────────────────────────────── --}}                
+            @elseif($currentTab === 'events')
+            <div class="space-y-6">
+                <div class="space-y-4">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <h1 class="text-2xl font-black text-[#005F5B] tracking-tight">All Club Events</h1>
+                            <p class="text-slate-500 mt-2">Browse and participate in events from every club.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm text-slate-500">Showing {{ $events->count() }} events</span>
+                        </div>
+                    </div>
+
+                    <form method="GET" action="{{ route('student.dashboard') }}" class="flex flex-wrap items-end gap-4">
+                        <input type="hidden" name="tab" value="events">
+                        <div class="min-w-[300px] flex-1">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Club Filter</label>
+                            <select name="club" class="w-full h-12 bg-white border border-slate-300 rounded-xl px-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#005F5B] focus:border-[#005F5B] transition">
+                                <option value="">All Clubs</option>
+                                @foreach($clubNames as $clubName)
+                                    <option value="{{ $clubName }}" {{ $selectedClub === $clubName ? 'selected' : '' }}>{{ $clubName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex gap-3">
+                            <button type="submit" class="h-12 px-6 rounded-xl bg-[#005F5B] text-white text-sm font-semibold hover:bg-[#004845] transition">Filter</button>
+                            <a href="{{ route('student.dashboard', ['tab' => 'events']) }}" class="h-12 px-6 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-semibold hover:bg-slate-50 transition flex items-center justify-center">Reset</a>
+                        </div>
+                        @if($selectedClub)
+                            <div class="flex items-center h-12 text-sm text-slate-600 font-medium">Showing events for <span class="font-semibold text-slate-900">{{ $selectedClub }}</span>.</div>
+                        @endif
+                    </form>
+                </div>
+
+                @if($events->isEmpty())
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h2 class="text-xl font-bold text-slate-800">No events available right now</h2>
+                    <p class="text-slate-500 mt-2">Check back later for upcoming club events and participation opportunities.</p>
+                </div>
+                @else
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    @foreach($events as $event)
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition">
+                        @if($event->event_banner)
+                        <img src="{{ asset('storage/' . ltrim($event->event_banner, '/')) }}" alt="{{ $event->title }}" class="h-48 w-full rounded-3xl object-cover mb-5">
+                        @endif
+                        <div class="mb-4">
+                            <p class="text-lg uppercase tracking-[0.1em] text-[#005F5B] underline">{{ $event->club?->name ?? $event->club_name }}</p>
+                            <h3 class="font-black text-slate-900 text-lg mt-1">{{ $event->title }}</h3>
+                            <p class="text-sm text-slate-600 mt-3 line-clamp-3">{{ $event->description }}</p>
+                        </div>
+                        <div class="grid gap-3 grid-cols-2 text-sm text-slate-600">
+                            <div>
+                                <p class="font-bold text-slate-800">Date</p>
+                                <p class="mt-1">{{ $event->from_date ? \Carbon\Carbon::parse($event->from_date)->format('M d, Y') : 'TBD' }}@if($event->to_date) – {{ \Carbon\Carbon::parse($event->to_date)->format('M d, Y') }}@endif</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Time</p>
+                                <p class="mt-1">{{ $event->start_time ? \Carbon\Carbon::parse($event->start_time)->format('g:i A') : 'TBD' }} – {{ $event->end_time ? \Carbon\Carbon::parse($event->end_time)->format('g:i A') : 'TBD' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Venue</p>
+                                <p class="mt-1">{{ $event->venue ?? $event->location ?? 'TBD' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Category</p>
+                                <p class="mt-1">{{ $event->event_category ?? 'General' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Registration Deadline</p>
+                                <p class="mt-1">{{ $event->registration_deadline ? \Carbon\Carbon::parse($event->registration_deadline)->format('M d, Y') : 'Open until start' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Organizer</p>
+                                <p class="mt-1">{{ $event->organizer ?? 'TBD' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Available Seats</p>
+                                <p class="mt-1">{{ $event->max_participants ? max(0, $event->max_participants - ($event->registrations_count ?? 0)) : 'Unlimited' }}</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">Registration Status</p>
+                                <p class="mt-1">{{ $event->registration_status ?? 'Open' }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+                            @php
+                                $registration = $event->registrations->first();
+                                $isRegistered = !is_null($registration);
+                                $full = $event->max_participants && ($event->registrations_count ?? 0) >= $event->max_participants;
+                                $deadlinePassed = $event->registration_deadline && \Carbon\Carbon::parse($event->registration_deadline)->isPast();
+                                $registrationClosed = ($event->registration_status ?? 'Open') === 'Closed';
+                            @endphp
+                            <div>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold {{ $event->status === 'Completed' ? 'bg-slate-100 text-slate-700' : ($event->status === 'Scheduled' && $deadlinePassed ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700') }}">{{ $event->status }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                @if($isRegistered)
+                                <span class="rounded-2xl bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700">Registered</span>
+                                @elseif($event->status === 'Scheduled' && !$full && !$deadlinePassed && !$registrationClosed)
+                                <form method="POST" action="{{ route('student.events.register', $event) }}">
+                                    @csrf
+                                    <button type="submit" class="rounded-2xl bg-[#005F5B] px-4 py-2 text-xs font-bold text-white hover:bg-[#004845] transition">Participate</button>
+                                </form>
+                                @elseif($full)
+                                <span class="rounded-2xl bg-rose-50 px-4 py-2 text-xs font-bold text-rose-700">Full</span>
+                                @elseif($registrationClosed)
+                                <span class="rounded-2xl bg-amber-50 px-4 py-2 text-xs font-bold text-amber-700">Registration Closed</span>
+                                @else
+                                <span class="rounded-2xl bg-slate-100 px-4 py-2 text-xs font-bold text-slate-600">Closed</span>
+                                @endif
+                            </div>
+                        </div>
+                        @if($isRegistered)
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-slate-700">
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Registration Status</p>
+                                <p class="mt-2 font-bold text-slate-900">{{ $registration->status }}</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Attendance</p>
+                                <p class="mt-2 font-bold text-slate-900">{{ $registration->attendance ?? 'Pending' }}</p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Certificate</p>
+                                @if($registration->certificate_path)
+                                    <a href="{{ asset('storage/' . ltrim($registration->certificate_path, '/')) }}" target="_blank" class="mt-2 inline-flex items-center gap-2 text-[#005F5B] font-bold text-sm hover:underline">View Certificate</a>
+                                @else
+                                    <p class="mt-2 font-bold text-slate-900">Pending</p>
+                                @endif
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+                @endif
+            </div>
+
             {{-- ── Help Records Tab ─────────────────────────────────────── --}}                
             @elseif($currentTab === 'help-desk')
             <div class="space-y-6">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="text-3xl font-black text-slate-900">
-                            Help Desk
-                        </h1>   
+                        <h1 class="text-2xl font-black text-[#005F5B] tracking-tight">Help Desk</h1>   
                         <p class="text-slate-500 mt-2">
                             Raise support tickets and track your requests.
                         </p>
                     </div>
-                    <button
-                        onclick="document.getElementById('ticketModal').classList.remove('hidden')"
-                        class="bg-[#005F5B] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#004845]">
-                            + Raise Ticket
+                    <button onclick="document.getElementById('ticketModal').classList.remove('hidden')" class="bg-[#005F5B] text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#004845] shadow-md transition flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                        Raise Ticket
                     </button>
                 </div>
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
@@ -354,7 +518,7 @@
 
                     <div class="rounded-2xl border border-slate-200 shadow-sm bg-white">
                         <div class="overflow-x-auto">
-                        <table class="min-w-[1700px]">
+                        <table class="w-full min-w-full">
                             <thead>
                                 <tr class="border-b text-xs font-bold uppercase text-black bg-slate-50/60 tracking-wider">
                                     <th class="py-4 px-6">Academic Year</th>
@@ -426,7 +590,7 @@
 
             {{-- ── Submissions Tab ──────────────────────────────────────────── --}}
             @elseif($currentTab === 'submissions')
-                <div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl overflow-hidden my-2">
+                <div class="max-w-7xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl overflow-hidden">
                     <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                         <div>
                             <h2 class="text-xl font-black text-[#005F5B]">New Submission</h2>
@@ -592,7 +756,7 @@
                     </form>
                 </div>
             @endif
-
+        </div>
         </main>
     </div>
 </div>

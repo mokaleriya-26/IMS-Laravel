@@ -152,7 +152,7 @@
                                 <th class="py-4 px-6">Branch &amp; Year</th>
                             @elseif($role === 'branch_admin' || $role === 'faculty')
                                 <th class="py-4 px-6">Assigned Branch</th>
-                            @elseif($role === 'club_admin' || $role === 'club_login')
+                            @elseif($role === 'club_admin')
                                 <th class="py-4 px-6">Assigned Club</th>
                             @endif
                             <th class="py-4 px-6 text-center">Actions</th>
@@ -180,7 +180,7 @@
                                     </td>
                                 @elseif($role === 'branch_admin' || $role === 'faculty')
                                     <td class="py-4 px-6 font-bold text-slate-750">{{ $userItem->assigned_branch ?? 'General' }}</td>
-                                @elseif($role === 'club_admin' || $role === 'club_login')
+                                @elseif($role === 'club_admin')
                                     <td class="py-4 px-6 font-bold text-slate-750">{{ $userItem->assigned_club ?? 'General' }}</td>
                                 @endif
                                 <td class="py-4 px-6 text-center">

@@ -56,17 +56,7 @@ class DatabaseSeeder extends Seeder
             'role'     => 'placement_cell',
         ]);
 
-        // 5. Club Login (Member)
-        User::create([
-            'name'          => 'Club Member',
-            'username'      => 'clubmember001',
-            'email'         => 'clubmember@ims.edu',
-            'password'      => Hash::make('clubmember123'),
-            'role'          => 'club_login',
-            'assigned_club' => 'Coding Club',
-        ]);
-
-        // 6. Club Admin
+        // 5. Club Admin
         User::create([
             'name'          => 'Club Admin',
             'username'      => 'clubadmin001',

@@ -96,7 +96,6 @@
                                 <option value="student" {{ request()->query('role') === 'student' ? 'selected' : '' }}>Student</option>
                                 <option value="faculty" {{ request()->query('role') === 'faculty' ? 'selected' : '' }}>Faculty</option>
                                 <option value="placement_cell" {{ request()->query('role') === 'placement_cell' ? 'selected' : '' }}>Placement Cell</option>
-                                <option value="club_login" {{ request()->query('role') === 'club_login' ? 'selected' : '' }}>Club Member (Login)</option>
                                 <option value="club_admin" {{ request()->query('role') === 'club_admin' ? 'selected' : '' }}>Club Admin</option>
                                 <option value="branch_admin" {{ request()->query('role') === 'branch_admin' ? 'selected' : '' }}>Branch Admin</option>
                             </select>
@@ -207,8 +206,8 @@
                 branchSection.style.display = 'none';
             }
 
-            // Club Admin / Member specific
-            if (val === 'club_admin' || val === 'club_login') {
+            // Club Admin specific
+            if (val === 'club_admin') {
                 clubSection.style.display = 'block';
             } else {
                 clubSection.style.display = 'none';

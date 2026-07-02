@@ -43,18 +43,29 @@
                     <p class="text-xs text-slate-500">Administrator</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="text-sm font-bold text-rose-600 bg-rose-50 px-4 py-2 rounded-xl hover:bg-rose-100 transition shadow-sm">Logout</button>
-                </form>
-            </div>
         </div>
     </aside>
     <div class="pl-64 flex-1">
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center px-8 sticky top-0 z-10 shadow-sm">
+        <header class="h-16 bg-white border-b border-slate-200 sticky top-0 z-10 flex items-center justify-between px-8 shadow-sm">
             <h1 class="text-lg font-black text-[#005F5B]">{{ isset($job) ? 'Edit Drive' : 'Post New Drive' }}</h1>
-            <a href="{{ route('placement.jobs') }}" class="text-[#005F5B] font-bold text-sm ml-auto">&larr; Back</a>
+            <div class="flex items-center gap-4">
+                <a href="{{ route('placement.jobs') }}"class="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-[#005F5B] transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </a>
+                <div class="h-6 w-px bg-slate-300"></div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"d="M17 16l4-4m0 0l-4-4m4 4H9m4 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"/>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
+            </div>
         </header>
         <main class="p-8 max-w-3xl">
             <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">

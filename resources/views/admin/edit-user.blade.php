@@ -128,7 +128,7 @@
                         </div>
                     @endif
 
-                    @if($user->role === 'club_admin' || $user->role === 'club_login')
+                    @if($user->role === 'club_admin')
                         {{-- Club Assignment --}}
                         <div class="border-t pt-6 space-y-4">
                             <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wide">Club Configuration</h4>

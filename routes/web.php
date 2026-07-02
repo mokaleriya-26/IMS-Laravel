@@ -5,7 +5,6 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PlacementController;
-use App\Http\Controllers\ClubMemberController;
 use App\Http\Controllers\ClubAdminController;
 use App\Http\Controllers\BranchAdminController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +40,7 @@ Route::middleware('auth')->group(function () {
             return redirect()->route('student.dashboard', ['tab' => 'submissions']);
         })->name('achievement.create');
         Route::post('/submit-achievement', [StudentController::class, 'storeAchievement'])->name('achievement.store');
+        Route::post('/events/{event}/register', [StudentController::class, 'registerForEvent'])->scopeBindings()->name('events.register');
         Route::get('/export', [StudentController::class, 'export'])->name('export');
         Route::delete('/achievement/{achievement}', [StudentController::class, 'destroyAchievement'])
         ->name('achievement.destroy');
@@ -86,13 +86,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/applications/{application}/status', [PlacementController::class, 'updateApplicationStatus'])->name('applications.status');
         Route::get('/students', [PlacementController::class, 'students'])->name('students');
         Route::get('/statistics', [PlacementController::class, 'statistics'])->name('statistics');
-    });
-
-    // ── Club Member Portal ────────────────────────────────────────────────────
-    Route::middleware('role:club_login')->prefix('club-member')->name('club.member.')->group(function () {
-        Route::get('/dashboard', [ClubMemberController::class, 'dashboard'])->name('dashboard');
-        Route::post('/events/{event}/register', [ClubMemberController::class, 'registerForEvent'])->name('events.register');
-        Route::post('/events/{registration}/report', [ClubMemberController::class, 'submitReport'])->name('events.report');
     });
 
     // ── Club Admin Portal ─────────────────────────────────────────────────────

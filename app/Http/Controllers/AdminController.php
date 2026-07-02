@@ -13,7 +13,7 @@ use App\Models\Announcement;
 
 class AdminController extends Controller
 {
-    protected $allRoles = ['student', 'faculty', 'placement_cell', 'club_login', 'club_admin', 'branch_admin'];
+    protected $allRoles = ['student', 'faculty', 'placement_cell', 'club_admin', 'branch_admin'];
 
     /**
      * Admin dashboard with system overview stats
@@ -99,7 +99,7 @@ class AdminController extends Controller
             'name'     => 'required|string|max:255',
             'username' => 'required|string|max:50|unique:users,username|regex:/^[a-z0-9_]+$/',
             'password' => 'required|string|min:6',
-            'role'     => 'required|in:student,faculty,placement_cell,club_login,club_admin,branch_admin',
+            'role'     => 'required|in:student,faculty,placement_cell,club_admin,branch_admin',
             'email'    => 'nullable|email|max:255|unique:users,email',
         ];
 
@@ -111,7 +111,7 @@ class AdminController extends Controller
         if (in_array($request->role, ['branch_admin', 'faculty'])) {
             $rules['assigned_branch'] = 'nullable|string|max:100';
         }
-        if (in_array($request->role, ['club_admin', 'club_login'])) {
+        if ($request->role === 'club_admin') {
             $rules['assigned_club'] = 'nullable|string|max:100';
         }
 
