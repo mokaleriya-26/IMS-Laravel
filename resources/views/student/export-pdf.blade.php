@@ -30,7 +30,7 @@
     </div>
     
     <div class="header">
-        <h1>EduStream IMS – Academic Achievements Report</h1>
+        <h1>EduHive – Academic Achievements Report</h1>
         <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Official Student Credentials Record</p>
     </div>
 
@@ -77,7 +77,7 @@
     </table>
 
     <div style="margin-top: 50px; font-size: 11px; color: #999; text-align: center;">
-        Report generated on {{ now()->format('F d, Y \a\t h:i A') }} &copy; EduStream IMS
+        Report generated on {{ now()->format('F d, Y \a\t h:i A') }} &copy; EduHive
     </div>
 
     <script>

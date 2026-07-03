@@ -6,22 +6,18 @@
     {{-- Sidebar --}}
     <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between fixed h-full z-20 shadow-sm">
         <div class="p-6">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="bg-[#005F5B] text-white p-2 rounded-xl shadow-md">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
-                </div>
+            <div class="flex items-center gap-4 mb-8">
+                <img src="{{ asset('images/logo.png') }}" alt="EduHive Logo" class="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-md flex-shrink-0" draggable="false" >
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-[15px] tracking-tight">Faculty Portal</h3>
-                    <p class="text-[11px] text-slate-500 font-medium">EduStream IMS</p>
+                    <h3 class="text-lg font-bold text-slate-900 leading-tight">Faculty Portal</h3>
+                    <p class="text-sm text-[#005F5B] font-semibold tracking-wide"> EduHive </p>
                 </div>
             </div>
 
             <nav class="space-y-1">
                 <a href="{{ route('faculty.dashboard', ['view' => 'queue']) }}" 
                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all {{ $currentView === 'queue' ? 'bg-[#EBF5F4] text-[#005F5B]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    <svg fill="#005f5b" width="18px" height="18px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 31.969 31.97" xml:space="preserve" stroke="#005f5b"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M0.875,21.789v7.955c0,1.229,0.997,2.226,2.226,2.226h25.766c1.229,0,2.227-0.997,2.227-2.226v-7.971 c-0.158,0.01-0.193,0.016-0.256,0.016H0.875z M5.296,30.143c-0.727,0-1.315-0.589-1.315-1.314s0.589-1.314,1.315-1.314 c0.725,0,1.314,0.589,1.314,1.314S6.021,30.143,5.296,30.143z M26.762,29.902H9.907c-0.591,0-1.072-0.441-1.072-1.033 s0.48-1.034,1.072-1.034h16.855c0.592,0,1.072,0.44,1.072,1.034C27.834,29.46,27.356,29.902,26.762,29.902z"></path> <path d="M28.868,16.383v-0.046V6.825c0-0.655-0.26-1.283-0.725-1.746l-4.38-4.361C23.302,0.258,22.677,0,22.026,0H4.564 C3.756,0,3.102,0.655,3.102,1.463v14.873v0.046c-1.229,0-2.226,0.997-2.226,2.226v1.114h29.963c0.062,0,0.098,0.006,0.256,0.017 v-1.131C31.094,17.38,30.097,16.383,28.868,16.383z M23.301,3.283l2.443,2.444h-2.443V3.283z M5.169,2.068h16.063v0.068v4.492 c0,0.731,0.594,1.325,1.325,1.325h4.083v8.112H5.169V2.068z"></path> <path d="M23.333,11.135H8.319c-0.592,0-1.072,0.442-1.072,1.034c0,0.591,0.48,1.034,1.072,1.034h15.013 c0.592,0,1.072-0.442,1.072-1.034C24.403,11.576,23.923,11.135,23.333,11.135z"></path> <path d="M8.319,7.953h8.58c0.592,0,1.071-0.521,1.071-1.114c0-0.592-0.479-1.112-1.071-1.112h-8.58 c-0.592,0-1.072,0.521-1.072,1.112C7.248,7.432,7.728,7.953,8.319,7.953z"></path> </g> </g> </g></svg>
                     Verification Queue
                 </a>
             </nav>

@@ -9,10 +9,7 @@
 
         <div class="relative z-10">
             <div class="inline-flex bg-white/10 backdrop-blur-md p-3 rounded-2xl mb-4 border border-white/10">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                </svg>
+                <img src="{{ asset('images/logo.png') }}" alt="EduHive logo" class="w-8 h-8" />
             </div>
             <h1 class="text-3xl font-bold tracking-tight">EduStream IMS</h1>
             <p class="text-[#EBF5F4]/70 text-sm mt-1">Institutional Management System</p>
