@@ -185,7 +185,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Year of Study</label>
-                                    <select required name="year_of_study" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-700 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all">
+                                    <select required name="year_of_study" class="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-sm font-bold text-slate-700 focus:outline-none focus:border-[#005F5B] focus:bg-white transition-all">
                                         <option value="1" {{ old('year_of_study', optional($user->studentProfile)->year_of_study) == 1 ? 'selected' : '' }}>First Year</option>
                                         <option value="2" {{ old('year_of_study', optional($user->studentProfile)->year_of_study) == 2 ? 'selected' : '' }}>Second Year</option>
                                         <option value="3" {{ old('year_of_study', optional($user->studentProfile)->year_of_study) == 3 ? 'selected' : '' }}>Third Year</option>

@@ -82,18 +82,13 @@
                             <input type="hidden" name="view" value="queue">
                             
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Branch</label>
-                                <input type="text" name="branch" value="{{ request('branch') }}" placeholder="e.g. Computer Science" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#005F5B]">
-                            </div>
-
-                            <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Academic Year</label>
                                 <input type="text" name="academic_year" value="{{ request('academic_year') }}" placeholder="e.g. 2024–2025" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#005F5B]">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Semester</label>
-                                <select name="semester" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#005F5B]">
+                                <select name="semester" class="w-full h-9 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm focus:outline-none focus:border-[#005F5B]">
                                     <option value="">All Semesters</option>
                                     @foreach(['I','II','III','IV','V','VI','VII','VIII'] as $sem)
                                         <option value="{{ $sem }}" {{ request('semester') === $sem ? 'selected' : '' }}>Sem {{ $sem }}</option>
@@ -108,7 +103,7 @@
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 mb-1">Status</label>
-                                <select name="status" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#005F5B]">
+                                <select name="status" class="w-full h-9 bg-slate-50 border border-slate-200 rounded-xl px-3 text-sm focus:outline-none focus:border-[#005F5B]">
                                     <option value="">All Statuses</option>
                                     <option value="Pending" {{ request('status') === 'Pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="Approved" {{ request('status') === 'Approved' ? 'selected' : '' }}>Approved</option>
@@ -165,11 +160,11 @@
                                         <td class="py-4 px-6 font-bold text-slate-700 max-w-sm truncate">{{ $item->event_name ?? $item->title }}</td>
                                         <td class="py-4 px-6">
                                             @if($item->status === 'Approved')
-                                                <span class="text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-bold">● Verified</span>
+                                                <span class="text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-bold">Verified</span>
                                             @elseif($item->status === 'Pending')
-                                                <span class="text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full text-xs font-bold">● Pending</span>
+                                                <span class="text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full text-xs font-bold">Pending</span>
                                             @else
-                                                <span class="text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full text-xs font-bold">● Returned</span>
+                                                <span class="text-rose-700 bg-rose-50 px-2.5 py-1 rounded-full text-xs font-bold">Returned</span>
                                             @endif
                                         </td>
                                         <td class="py-4 px-6 text-center">

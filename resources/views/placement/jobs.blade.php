@@ -83,7 +83,7 @@
                         <tr class="hover:bg-slate-50 transition">
                             <td class="py-3.5 px-5 font-bold text-slate-800">{{ $job->company_name }}</td>
                             <td class="py-3.5 px-5 text-slate-700">{{ $job->job_title }}</td>
-                            <td class="py-3.5 px-5"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md text-xs font-bold">{{ $job->type }}</span></td>
+                            <td class="py-3.5 px-5"><span class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md text-xs font-bold">{{ $job->type }}</span></td>
                             <td class="py-3.5 px-5 text-slate-600">{{ $job->eligibility_cgpa }}</td>
                             <td class="py-3.5 px-5 text-slate-600 text-xs">{{ $job->drive_date ? \Carbon\Carbon::parse($job->drive_date)->format('M d, Y') : 'TBD' }}</td>
                             <td class="py-3.5 px-5"><span class="{{ $job->status === 'Open' ? 'text-emerald-700 bg-emerald-50' : 'text-slate-500 bg-slate-100' }} px-2.5 py-0.5 rounded-full text-xs font-bold">{{ $job->status }}</span></td>

@@ -34,6 +34,7 @@ class HelpDeskController extends Controller
             'status' => 'Open'
         ]);
 
-        return back()->with('success','Ticket submitted successfully.');
+        return redirect()->route('student.dashboard', ['tab' => 'help-desk'])
+                         ->with('success','Ticket submitted successfully.');
     }
 }

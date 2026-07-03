@@ -243,7 +243,7 @@
                         <input type="hidden" name="tab" value="events">
                         <div class="min-w-[300px] flex-1">
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Club Filter</label>
-                            <select name="club" class="w-full h-12 bg-white border border-slate-300 rounded-xl px-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#005F5B] focus:border-[#005F5B] transition">
+                            <select name="club" class="w-full h-12 bg-white border border-slate-300 rounded-xl px-4 text-sm font-medium text-slate-700 focus:outline-none focus:border-[#005F5B] transition">
                                 <option value="">All Clubs</option>
                                 @foreach($clubNames as $clubName)
                                     <option value="{{ $clubName }}" {{ $selectedClub === $clubName ? 'selected' : '' }}>{{ $clubName }}</option>
@@ -381,6 +381,7 @@
                         Raise Ticket
                     </button>
                 </div>
+                @if($tickets->isEmpty())
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
                     <div class="text-6xl mb-4">🎟️</div>
                     <h2 class="text-xl font-bold text-slate-800">
@@ -390,6 +391,39 @@
                         When you raise a support ticket, it will appear here.
                     </p>
                 </div>
+                @else
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                    @foreach($tickets as $ticket)
+                    <div class="p-6 {{ $loop->last ? '' : 'border-b border-slate-200' }}">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ $ticket->category }}</p>
+                                <h2 class="text-xl font-bold text-slate-900">{{ $ticket->subject }}</h2>
+                                <p class="text-sm text-slate-500 mt-2">Submitted on {{ $ticket->created_at->format('d M Y') }}</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold {{ $ticket->status === 'Open' ? 'bg-yellow-100 text-yellow-700' : ($ticket->status === 'In Progress' ? 'bg-blue-100 text-blue-700' : ($ticket->status === 'Resolved' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700')) }}">
+                                    {{ $ticket->status }}
+                                </span>
+                                <span class="text-sm text-slate-500">Priority: {{ $ticket->priority }}</span>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm text-slate-600">{{ \Illuminate\Support\Str::limit($ticket->description, 180) }}</p>
+                        @if($ticket->admin_reply)
+                        <div class="mt-4 rounded-2xl bg-slate-50 border border-slate-200 p-4 text-sm text-slate-700">
+                            <span class="font-semibold text-slate-800">Reply:</span> {{ $ticket->admin_reply }}
+                        </div>
+                        @endif
+                        <div class="mt-4 flex flex-wrap gap-3 text-sm text-slate-500">
+                            @if($ticket->attachment)
+                            <a href="{{ asset('storage/' . ltrim($ticket->attachment,'/')) }}" target="_blank" class="font-semibold text-[#005F5B] hover:underline">View attachment</a>
+                            @endif
+                            <span>Ticket ID: #{{ $ticket->id }}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
 
             {{-- ── Placement Tab ─────────────────────────────────────── --}}
@@ -689,11 +723,11 @@
                                     <label class="block text-xs font-bold text-slate-700 mb-2">Award / Participation Status</label>
                                     <div class="flex gap-4">
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="award_status" value="Award" class="w-4 h-4 text-[#005F5B] border-slate-300 focus:ring-[#005F5B]" {{ $preAwardStatus === 'Award' ? 'checked' : '' }}>
+                                            <input type="radio" name="award_status" value="Award" class="w-4 h-4 text-[#005F5B] border-slate-300" {{ $preAwardStatus === 'Award' ? 'checked' : '' }}>
                                             <span class="text-sm font-semibold text-slate-700">🏆 Award / Winner</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="award_status" value="Participation" class="w-4 h-4 text-[#005F5B] border-slate-300 focus:ring-[#005F5B]" {{ $preAwardStatus === 'Participation' ? 'checked' : '' }}>
+                                            <input type="radio" name="award_status" value="Participation" class="w-4 h-4 text-[#005F5B] border-slate-300" {{ $preAwardStatus === 'Participation' ? 'checked' : '' }}>
                                             <span class="text-sm font-semibold text-slate-700">🎟️ Participation</span>
                                         </label>
                                     </div>
@@ -725,7 +759,7 @@
 
                         {{-- Declaration --}}
                         <div class="flex items-start gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <input type="checkbox" required id="certify" class="w-4 h-4 rounded text-[#005F5B] border-slate-300 focus:ring-[#005F5B] mt-0.5">
+                            <input type="checkbox" required id="certify" class="w-4 h-4 rounded text-[#005F5B] border-slate-300 mt-0.5">
                             <label for="certify" class="text-xs font-semibold text-slate-600 select-none cursor-pointer leading-relaxed">
                                 I hereby declare that all the details and documents uploaded above are genuine. Any discrepancy may result in rejection of credentials.
                             </label>

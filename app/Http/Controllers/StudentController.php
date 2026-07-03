@@ -125,6 +125,10 @@ class StudentController extends Controller
         $applications = PlacementApplication::where('student_id', auth()->id())
             ->pluck('status','job_id');
 
+        $tickets = HelpTicket::where('student_id', $user->id)
+            ->latest()
+            ->get();
+
         $events = null;
         $clubNames = collect();
         $selectedClub = $request->query('club', '');
@@ -152,7 +156,7 @@ class StudentController extends Controller
         return view('student.dashboard', compact(
             'achievements', 'user', 'currentTab',
             'approvedCount', 'pendingCount', 'rejectedCount',
-            'announcements', 'preCategory', 'preAwardStatus','jobs','applications', 'events',
+            'announcements', 'preCategory', 'preAwardStatus','jobs','applications', 'tickets', 'events',
             'clubNames', 'selectedClub'
         ));
     }

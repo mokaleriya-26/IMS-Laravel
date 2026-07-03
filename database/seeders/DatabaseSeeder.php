@@ -75,19 +75,5 @@ class DatabaseSeeder extends Seeder
             'role'            => 'branch_admin',
             'assigned_branch' => 'Computer Science',
         ]);
-
-        // Seed some global announcements to display in marquee
-        Announcement::create([
-            'title'      => 'Welcome to the new EduStream Portal! All student modules are live.',
-            'content'    => 'Welcome to the newly launched portal. You can now submit certificates, paper publications, and internships.',
-            'type'       => 'general',
-            'created_by' => 1,
-        ]);
-        Announcement::create([
-            'title'      => 'Placement drive registrations for Microsoft are open till July 15th.',
-            'content'    => 'Microsoft placement drive registration is open. Eligible branches: CS/IT. CGPA cutoff: 8.5.',
-            'type'       => 'general',
-            'created_by' => 1,
-        ]);
     }
 }

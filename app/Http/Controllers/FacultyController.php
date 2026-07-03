@@ -16,6 +16,10 @@ class FacultyController extends Controller
     {
         $query = Achievement::with(['student.studentProfile', 'reviewer']);
 
+        if (Auth::user()->assigned_branch) {
+            $query->whereHas('student.studentProfile', fn($q) => $q->where('branch', Auth::user()->assigned_branch));
+        }
+
         // Advanced filter logic (allows multiple simultaneous filters)
         if ($request->filled('branch')) {
             $query->whereHas('student.studentProfile', fn($q) => $q->where('branch', $request->branch));
