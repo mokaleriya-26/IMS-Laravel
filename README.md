@@ -1,58 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# IMS-Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+IMS-Laravel is a role-based institutional management system built with Laravel. It provides separate portals for students, faculty, branch administrators, placement cell users, club admins, and system administrators.
 
-## About Laravel
+## Key Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Role-based access**
+  - Student portal
+  - Faculty portal
+  - Branch admin portal
+  - Placement cell portal
+  - Club admin portal
+  - System admin portal
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Student portal**
+  - Portal selection page with clean role cards
+  - Dashboard with announcements, placement drives, and achievement status summaries
+  - Help Desk for raising and tracking support tickets
+  - Academic records and achievement submission flow
+  - Placement drive browsing and job application
+  - Profile management with branch and roll number data
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Faculty portal**
+  - Verification pipeline for student achievements
+  - Branch-specific review queue based on assigned branch
+  - Advanced filtering for academic year, semester, division, status, and reviewer
+  - Approve or reject submissions with remarks
 
-## Learning Laravel
+- **Placement cell portal**
+  - Create and manage placement job drives
+  - Review applications and update statuses
+  - Track student placement activity
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Club admin portal**
+  - Create and manage club events
+  - Track registrations, attendance, and certificates
+  - Publish club announcements
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Branch admin portal**
+  - Manage branch students and faculty
+  - Publish branch-specific notices
+  - View branch statistics, pending requests, and reports
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **Admin portal**
+  - Manage users and roles
+  - Create faculty and branch admin accounts
+  - Publish global announcements
 
-## Agentic Development
+## Installation
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+1. Clone the repository:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url> ims-laravel
+cd ims-laravel
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. Install PHP dependencies:
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Install JavaScript dependencies:
 
-## Code of Conduct
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Copy the environment file and configure:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Set database credentials in `.env`, then run migrations:
+
+```bash
+php artisan migrate
+```
+
+6. If needed, seed data:
+
+```bash
+php artisan db:seed
+```
+
+7. Build frontend assets:
+
+```bash
+npm run dev
+```
+
+8. Start the local development server:
+
+```bash
+php artisan serve
+```
+
+## Default User Setup
+
+If your project seeds demo users, check `database/seeders/DatabaseSeeder.php` for default credentials.
+
+| Role | Username | Password |
+| --- | --- | --- |
+| Admin | `admin` | `admin123` |
+| Faculty | `faculty001` | `faculty123` |
+| Student | `student001` | `student123` |
+| Placement Cell | `placement001` | `placement123` |
+| Club Member | `clubmember001` | `clubmember123` |
+| Club Admin | `clubadmin001` | `clubadmin123` |
+| Branch Admin | `branchadmin001` | `branchadmin123` |
+
+## Project Structure
+
+- `app/Http/Controllers/` — controller logic for each portal and feature
+- `app/Models/` — Eloquent models, including `HelpTicket`, `StudentProfile`, `Achievement`, and user roles
+- `resources/views/` — Blade templates for student, faculty, admin, branch, club, and placement portals
+- `routes/web.php` — application routes and role-based middleware groups
+- `database/migrations/` — schema definitions for users, help tickets, achievements, and other entities
+
+## Notes
+
+- Student help tickets are stored in `help_tickets` and displayed on the student dashboard.
+- Faculty users only see submissions for their assigned branch.
+- The student dashboard contains a help desk tab, academic records, placement, and submission workflows.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
+
+## Results
